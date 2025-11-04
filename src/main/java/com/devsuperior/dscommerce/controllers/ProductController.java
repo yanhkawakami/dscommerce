@@ -25,7 +25,7 @@ public class ProductController {
     @Autowired
     private ProductService service;
 
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @GetMapping (value = "/{id}")
     public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
         ProductDTO dto = service.findById(id);
@@ -41,7 +41,7 @@ public class ProductController {
         return ResponseEntity.ok(dto);
     }
 
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping
     // O @Valid é a notação do Jakarta que sinaliza que há uma validação a ser feita no DTO
     public ResponseEntity<ProductDTO>insert(@Valid @RequestBody ProductDTO productDTO){
@@ -52,7 +52,7 @@ public class ProductController {
         return ResponseEntity.created(uri).body(dto);
     }
 
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PutMapping (value = "/{id}")
     // O @Valid é a notação do Jakarta que sinaliza que há uma validação a ser feita no DTO
     public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO productDTO){
@@ -60,7 +60,7 @@ public class ProductController {
         return ResponseEntity.ok(dto);
     }
 
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @DeleteMapping (value = "/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         service.delete(id);
