@@ -18,7 +18,7 @@ public class User implements UserDetails {
     private Long id;
     private String name;
 
-    @Column(unique = true) // Garante que o e-mail não se repita
+    @Column(unique = true) // Garante que o 'email' não se repita
     private String email;
     private String phone;
     private LocalDate birthDate;
@@ -87,7 +87,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return (Collection<? extends GrantedAuthority>) roles;
     }
 
     public String getPassword() {
