@@ -16,10 +16,10 @@ public class ProductMinDTO {
         this.imgUrl = imgUrl;
     }
 
-    public ProductMinDTO(Product product){
-        name = product.getName();
-        price = product.getPrice();
-        imgUrl = product.getImgUrl();
+    public ProductMinDTO(Product entity){
+        name = entity.getName();
+        price = entity.getPrice();
+        imgUrl = entity.getImgUrl();
     }
 
     public String getName() {

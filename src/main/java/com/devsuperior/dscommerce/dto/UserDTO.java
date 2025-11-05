@@ -31,13 +31,13 @@ public class UserDTO {
         this.roles = roles;
     }
 
-    public UserDTO(User user) {
-        id = user.getId();
-        name = user.getName();
-        email = user.getEmail();
-        phone = user.getPhone();
-        birthDate = user.getBirthDate();
-        for (GrantedAuthority role : user.getAuthorities()){
+    public UserDTO(User entity) {
+        id = entity.getId();
+        name = entity.getName();
+        email = entity.getEmail();
+        phone = entity.getPhone();
+        birthDate = entity.getBirthDate();
+        for (GrantedAuthority role : entity.getAuthorities()){
             roles.add(role.getAuthority());
         }
     }

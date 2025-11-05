@@ -1,7 +1,11 @@
 package com.devsuperior.dscommerce.dto;
 
+import com.devsuperior.dscommerce.entities.Category;
 import com.devsuperior.dscommerce.entities.Product;
 import jakarta.validation.constraints.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class ProductDTO {
 
@@ -16,6 +20,9 @@ public class ProductDTO {
     @NotBlank
     @Size(min = 10, message = "Descrição precisa ter, no mínimo, 10 caracters")
     private String imgUrl;
+
+    @NotEmpty(message = "Deve ter pelo menos uma categoria")
+    private Set<CategoryDTO> categories = new HashSet<>();
 
     public ProductDTO() {}
 
@@ -33,6 +40,9 @@ public class ProductDTO {
         description = entity.getDescription();
         price = entity.getPrice();
         imgUrl = entity.getImgUrl();
+        for (Category category : entity.getCategories()){
+            categories.add(new CategoryDTO(category));
+        }
     }
 
     public Long getId() {
@@ -73,5 +83,13 @@ public class ProductDTO {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Set<CategoryDTO> getCategories() {
+        return categories;
+    }
+
+    public void addCategories(CategoryDTO category){
+        categories.add(category);
     }
 }
