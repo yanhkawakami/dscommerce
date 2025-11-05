@@ -1,17 +1,22 @@
 meta {
-  name: ProductsById
+  name: User logged
   type: http
-  seq: 4
+  seq: 6
 }
 
 get {
-  url: http://localhost:8080/products/26
+  url: http://localhost:8080/users/me
   body: none
   auth: bearer
 }
 
 auth:bearer {
   token: {{token}}
+}
+
+body:json {
+  {
+  }
 }
 
 settings {
