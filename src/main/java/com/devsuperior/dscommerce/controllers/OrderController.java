@@ -6,6 +6,7 @@ package com.devsuperior.dscommerce.controllers;
 import com.devsuperior.dscommerce.dto.OrderDTO;
 import com.devsuperior.dscommerce.dto.ProductDTO;
 import com.devsuperior.dscommerce.dto.ProductMinDTO;
+import com.devsuperior.dscommerce.entities.Order;
 import com.devsuperior.dscommerce.services.OrderService;
 import com.devsuperior.dscommerce.services.ProductService;
 import jakarta.validation.Valid;
@@ -33,4 +34,14 @@ public class OrderController {
         return ResponseEntity.ok(dto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_CLIENT')")
+    @PostMapping
+    // O @Valid é a notação do Jakarta que sinaliza que há uma validação a ser feita no DTO
+    public ResponseEntity<OrderDTO>insert(@Valid @RequestBody OrderDTO orderDto){
+        OrderDTO dto = service.insert(orderDto);
+        // A URI é o link para o recurso criado, retornando o LOCATION nos HEADERS
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
+    }
 }

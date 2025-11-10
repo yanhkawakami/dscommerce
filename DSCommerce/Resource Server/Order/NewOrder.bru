@@ -1,0 +1,35 @@
+meta {
+  name: NewOrder
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/orders
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJraWQiOiI1Zjc3N2FhNi01M2FhLTRlMDQtOTg3OS1mMzEyNmFjNTA1MzYiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJteWNsaWVudGlkIiwiYXVkIjoibXljbGllbnRpZCIsIm5iZiI6MTc2Mjc5NTA5NSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwIiwiZXhwIjoxNzYyODgxNDk1LCJpYXQiOjE3NjI3OTUwOTUsImp0aSI6ImYzNDE5MDdhLTAyYTQtNDI0Ny1hYjZmLWIzNWE0ZWU3MGExMyIsImF1dGhvcml0aWVzIjpbIlJPTEVfT1BFUkFUT1IiXSwidXNlcm5hbWUiOiJtYXJpYUBnbWFpbC5jb20ifQ.LQtGPdTCdQZIeXO8oNOGtA15eVw5p8j_qTBcy58l3m4K57HzvisaHSKX2tNymUeetA8CmbQ1iAi4HY8KV4sIKFvbUJjNNCaQckl78IEhyr9qCBclp6iULlVq4J6mND-J6tyOxF1gHGE2mTE16t8SS90noccdNwoa7Mz4OjDGvBBo0HbNn8lmKcw5vD9MOSbHcxfhAK_viJphv-Ghzu_k2Mtu43u6HsztVmV4BAhVSlOOYwHfDfAoiQmQboavJcgTb6b9oMMkk5ux1CZDt4DDWV0163nwnqmozV-nEBzAON9NXG2vbhscrjyhcNxsamAmtMb6Y3bTRL-kc6WS-5hV2A
+}
+
+body:json {
+  {
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 2
+      },
+      {
+        "productId": 5,
+        "quantity": 1
+      }
+    ]
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
