@@ -7,6 +7,7 @@ import com.devsuperior.dscommerce.entities.*;
 import com.devsuperior.dscommerce.repositories.OrderItemRepository;
 import com.devsuperior.dscommerce.repositories.OrderRepository;
 import com.devsuperior.dscommerce.repositories.ProductRepository;
+import com.devsuperior.dscommerce.services.exceptions.ForbiddenException;
 import com.devsuperior.dscommerce.services.exceptions.ResourceNotFoundException;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -31,12 +33,17 @@ public class OrderService {
     @Autowired
     private OrderItemRepository orderItemRepository;
 
+    @Autowired
+    private AuthService authService;
+
     @Transactional(readOnly = true) // Usamos isso para não dar lock no banco de dados
     // O Service precisa retornar DTO, pois ele devolve um DTO para o Controller e não uma entidade
     public OrderDTO findById(Long id) {
         Optional<Order> result = repository.findById(id);
         Order order = result.orElseThrow(
                 () -> new ResourceNotFoundException("Recurso com ID " + id + " não encontrado"));
+        // Testa se o user que está logado é o dono do pedido ou se ele é um admin
+        authService.validateSelfOrAdmin(order.getClient().getId());
         return new OrderDTO(order);
     }
 
